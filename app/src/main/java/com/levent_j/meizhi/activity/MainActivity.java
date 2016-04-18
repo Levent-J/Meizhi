@@ -1,6 +1,7 @@
 package com.levent_j.meizhi.activity;
 
 import android.content.Context;
+import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -50,12 +51,13 @@ public class MainActivity extends BaseActivity
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
+        disableNavigationViewScrollbars(navigationView);
         toggle.syncState();
 
         typeFragmentAdapter = new TypeFragmentAdapter(getSupportFragmentManager(),this);
 
         for (int i=0;i<7;i++){
-            typeFragmentAdapter.addFragment(TypeFragment.newInstance(i+1),"第"+i+"种");
+            typeFragmentAdapter.addFragment(TypeFragment.newInstance(i+1),i);
         }
 
 
@@ -163,20 +165,48 @@ public class MainActivity extends BaseActivity
 
         public void replaceFragmrnt(int position){
             android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.frafment_container,typeFragmentList.get(position));
+            fragmentTransaction.replace(R.id.fragment_container,typeFragmentList.get(position));
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
-            msg("frag--commit");
+            toolbar.setTitle(getPageTitle(position));
         }
 
-        public void addFragment(Fragment fragment,String type){
+        public void addFragment(Fragment fragment,int type){
             typeFragmentList.add(fragment);
-            fragmentTitles.add(type);
+            fragmentTitles.add(getTitle(type));
+        }
+
+        private String getTitle(int type) {
+            switch (type){
+                case 0:
+                    return "性感美女";
+                case 1:
+                    return "日韩美女";
+                case 2:
+                    return "丝袜美腿";
+                case 3:
+                    return "美女照片";
+                case 4:
+                    return "美女写真";
+                case 5:
+                    return "清纯美女";
+                default:
+                    return "性感车模";
+            }
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             return fragmentTitles.get(position);
+        }
+    }
+
+    private void disableNavigationViewScrollbars(NavigationView navigationView) {
+        if (navigationView != null) {
+            NavigationMenuView navigationMenuView = (NavigationMenuView) navigationView.getChildAt(0);
+            if (navigationMenuView != null) {
+                navigationMenuView.setVerticalScrollBarEnabled(false);
+            }
         }
     }
 }

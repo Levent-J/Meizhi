@@ -3,19 +3,19 @@
 
     <group android:checkableBehavior="single">
         <item android:id="@+id/nav_1" android:icon="@android:drawable/ic_menu_camera"
-            android:title="1" />
+            android:title="性感美女" />
         <item android:id="@+id/nav_2" android:icon="@android:drawable/ic_menu_gallery"
-            android:title="2" />
+            android:title="日韩美女" />
         <item android:id="@+id/nav_3" android:icon="@android:drawable/ic_menu_slideshow"
-            android:title="3" />
+            android:title="丝袜美腿" />
         <item android:id="@+id/nav_4" android:icon="@android:drawable/ic_menu_manage"
-            android:title="4" />
+            android:title="美女照片" />
         <item android:id="@+id/nav_5" android:icon="@android:drawable/ic_menu_gallery"
-            android:title="5" />
+            android:title="美女写真" />
         <item android:id="@+id/nav_6" android:icon="@android:drawable/ic_menu_slideshow"
-            android:title="6" />
+            android:title="清纯美女" />
         <item android:id="@+id/nav_7" android:icon="@android:drawable/ic_menu_manage"
-            android:title="7" />
+            android:title="性感车模" />
     </group>
 
     <item android:title="Communicate">
