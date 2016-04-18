@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.levent_j.meizhi.R;
@@ -27,13 +28,13 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.mViewHol
     private List<Gallery> galleryList;
     private final LayoutInflater layoutInflater;
     private static final String IMAGE_URL = "http://tnfs.tngou.net/image";
-    private int flag;
+    private boolean flag;
 
     public GalleryAdapter(Context context){
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
         galleryList = new ArrayList<>();
-        flag = 0;
+        flag = false;
     }
 
     @Override
@@ -45,6 +46,18 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.mViewHol
     @Override
     public void onBindViewHolder(mViewHolder holder, int position) {
         Gallery gallery = galleryList.get(position);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        if (flag){
+//            flag = false;
+            lp.setMargins(0, 100, 0, 0);
+        }else {
+            flag = true;
+            lp.setMargins(0, 0, 0, 0);
+        }
+        holder.mGalleryImg.setLayoutParams(lp);
+
         String url = gallery.getImg();
         Picasso.with(context)
                 .load(IMAGE_URL+url)
@@ -69,6 +82,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.mViewHol
     class mViewHolder extends RecyclerView.ViewHolder{
         @Bind(R.id.iv_gallery_img)
         ImageView mGalleryImg;
+        @Bind(R.id.ll_layout)
+        LinearLayout linearLayout;
 //        @Bind(R.id.tv_gallery_title)
 //        TextView mGalleryTitle;
 
