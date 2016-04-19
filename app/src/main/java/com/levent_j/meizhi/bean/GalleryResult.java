@@ -1,14 +1,9 @@
 package com.levent_j.meizhi.bean;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import java.util.regex.MatchResult;
-
 /**
  * Created by levent_j on 16-4-19.
  */
-public class GalleryResult implements Parcelable{
+public class GalleryResult {
 
     /**
      * count : 1810
@@ -36,42 +31,63 @@ public class GalleryResult implements Parcelable{
     private long time;
     private String title;
     private String url;
+    private Picture[] list;
 
-    protected GalleryResult(Parcel in){
-        count = in.readInt();
-        fcount = in.readInt();
-        rcount = in.readInt();
-        galleryclass = in.readInt();
-        id = in.readInt();
-        size = in.readInt();
-        img = in.readString();
-        title = in.readString();
-        url = in.readString();
-        time = in.readLong();
-        status = in.readByte() != 0;
+
+    public Picture[] getList() {
+        return list;
     }
 
-    public static final Creator<GalleryResult> CREATOR = new Creator<GalleryResult>() {
-        @Override
-        public GalleryResult createFromParcel(Parcel in) {
-            return new GalleryResult(in);
-        }
-
-        @Override
-        public GalleryResult[] newArray(int size) {
-            return new GalleryResult[size];
-        }
-    };
-
-    public PictureResult[] getPictures() {
-        return pictures;
+    public void setList(Picture[] list) {
+        this.list = list;
     }
 
-    public void setPictures(PictureResult[] pictures) {
-        this.pictures = pictures;
-    }
 
-    private PictureResult[] pictures;
+//    public static final Parcelable.Creator<GalleryResult> CREATOR = new Creator<GalleryResult>() {
+//        @Override
+//        public GalleryResult createFromParcel(Parcel source) {
+//            GalleryResult galleryResult = new GalleryResult();
+//            galleryResult.count = source.readInt();
+//            galleryResult.fcount = source.readInt();
+//            galleryResult.galleryclass = source.readInt();
+//            galleryResult.id = source.readInt();
+//            galleryResult.img = source.readString();
+//            galleryResult.rcount = source.readInt();
+//            galleryResult.size = source.readInt();
+//            galleryResult.status = source.readByte()!=0;
+//            galleryResult.time = source.readLong();
+//            galleryResult.title = source.readString();
+//            galleryResult.url = source.readString();
+//            return galleryResult;
+//        }
+//
+//        @Override
+//        public GalleryResult[] newArray(int size) {
+//            return new GalleryResult[size];
+//        }
+//    };
+
+//    @Override
+//    public int describeContents() {
+//        return 0;
+//    }
+//
+//
+//    @Override
+//    public void writeToParcel(Parcel dest, int flags) {
+//        dest.writeInt(count);
+//        dest.writeInt(fcount);
+//        dest.writeInt(galleryclass);
+//        dest.writeInt(id);
+//        dest.writeInt(rcount);
+//        dest.writeInt(size);
+//        dest.writeString(img);
+//        dest.writeString(title);
+//        dest.writeString(url);
+//        dest.writeByte((byte) (status ? 1 : 0));
+//        dest.writeLong(time);
+//    }
+
 
     public int getCount() {
         return count;
@@ -161,24 +177,5 @@ public class GalleryResult implements Parcelable{
         this.url = url;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(count);
-        dest.writeInt(fcount);
-        dest.writeInt(galleryclass);
-        dest.writeInt(id);
-        dest.writeInt(rcount);
-        dest.writeInt(size);
-        dest.writeString(img);
-        dest.writeString(title);
-        dest.writeString(url);
-        dest.writeByte((byte) (status ? 1 : 0));
-        dest.writeLong(time);
-    }
 }

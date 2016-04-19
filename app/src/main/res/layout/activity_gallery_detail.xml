@@ -46,14 +46,14 @@
                 android:layout_height="match_parent">
                 <TextView
                     android:textColor="@color/colorWhite"
-                    android:textSize="12pt"
+                    android:textSize="10pt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="title title title title"
                     android:id="@+id/tv_gallery_detail_title"/>
                 <TextView
                     android:textColor="@color/colorWhite"
-                    android:textSize="9pt"
+                    android:textSize="8pt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="fcount"
@@ -65,7 +65,7 @@
                 <TextView
                     android:textColor="@color/colorWhite"
                     android:layout_marginTop="10dp"
-                    android:textSize="9pt"
+                    android:textSize="8pt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="count"
@@ -78,7 +78,7 @@
                 <TextView
                     android:textColor="@color/colorWhite"
                     android:layout_marginTop="10dp"
-                    android:textSize="9pt"
+                    android:textSize="8pt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="rcount"
@@ -89,7 +89,7 @@
 
             <TextView
                 android:textColor="@color/colorWhite"
-                android:textSize="12pt"
+                android:textSize="10pt"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"

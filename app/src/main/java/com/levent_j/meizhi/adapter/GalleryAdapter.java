@@ -53,7 +53,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.mViewHol
         if (position==0){
             lp.setMargins(0, 0, 0, 0);
         }else if (position==1){
-            lp.setMargins(0,200,0,0);
+            lp.setMargins(0,300,0,0);
         }else if (position>1){
             lp.setMargins(0,100,0,0);
         }

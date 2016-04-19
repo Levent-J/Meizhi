@@ -2,9 +2,6 @@ package com.levent_j.meizhi.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
@@ -14,12 +11,13 @@ import android.widget.TextView;
 import com.levent_j.meizhi.R;
 import com.levent_j.meizhi.base.BaseActivity;
 import com.levent_j.meizhi.bean.GalleryResult;
-import com.levent_j.meizhi.bean.PictureResult;
+import com.levent_j.meizhi.bean.Picture;
 import com.levent_j.meizhi.net.Api;
+import com.levent_j.meizhi.utils.PicassoTransformation;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 
 import butterknife.Bind;
 import rx.Subscriber;
@@ -45,6 +43,8 @@ public class GalleryDetailActivity extends BaseActivity implements View.OnClickL
     private GalleryResult galleryResult;
     private Context context;
     private static final String IMAGE_URL = "http://tnfs.tngou.net/image";
+    private ArrayList<Picture> pictureResultArrayList;
+    private ArrayList<String> urlList;
 
     @Override
     protected int getLayoutId() {
@@ -57,6 +57,8 @@ public class GalleryDetailActivity extends BaseActivity implements View.OnClickL
         id = getIntent().getIntExtra("id",1);
         setSupportActionBar(toolbar);
         toolbar.setTitle("图片详情");
+        pictureResultArrayList = new ArrayList<>();
+        urlList = new ArrayList<>();
         loadData();
     }
 
@@ -74,25 +76,32 @@ public class GalleryDetailActivity extends BaseActivity implements View.OnClickL
     private Subscriber<GalleryResult> galleryResultSubscriber = new Subscriber<GalleryResult>() {
         @Override
         public void onCompleted() {
-            WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-            double width =   windowManager.getDefaultDisplay().getWidth() * 2/3;
-            double height = width / 0.618;
-            Picasso.with(context).load(IMAGE_URL+galleryResult.getImg()).resize((int)width,(int)height).centerCrop().into(mGalleryImg);
+            Picasso picasso = Picasso.with(getApplicationContext());
+            PicassoTransformation picassoTransformation = new PicassoTransformation(getApplicationContext(),false);
+            picasso.load(IMAGE_URL+galleryResult.getImg()).transform(picassoTransformation).into(mGalleryImg);
+//
             mGalleryTitle.setText(galleryResult.getTitle() + "(" + galleryResult.getSize() + "张)");
-            mGalleryCount.setText("收藏数"+galleryResult.getCount());
+            mGalleryCount.setText("访问数:"+galleryResult.getCount());
             mGalleryRcount.setText("回复数："+galleryResult.getRcount());
-            mGalleryFcount.setText("收藏数"+galleryResult.getFcount());
+            mGalleryFcount.setText("收藏数:" + galleryResult.getFcount());
+            for (int i=0;i<galleryResult.getList().length;i++){
+                urlList.add(galleryResult.getList()[i].getSrc());
+            }
         }
 
         @Override
         public void onError(Throwable e) {
-            msg("error-->message is"+e.getLocalizedMessage());
-            galleryResultSubscriber.unsubscribe();
+            msg("error-->message is" + e.getLocalizedMessage());
         }
 
         @Override
         public void onNext(GalleryResult result) {
-            galleryResult = result;
+            if (result.isStatus()){
+                galleryResult = result;
+            }else {
+                msg("error-->false");
+            }
+
         }
 
         @Override
@@ -107,7 +116,8 @@ public class GalleryDetailActivity extends BaseActivity implements View.OnClickL
         switch (v.getId()){
             case R.id.iv_gallery_detail_img:
                 Intent intent = new Intent(this,PictureActivity.class);
-                intent.putExtra("pictures", galleryResult);
+                intent.putStringArrayListExtra("urls",urlList);
+                msg("urls---<<<"+urlList.size());
                 startActivity(intent);
                 break;
         }

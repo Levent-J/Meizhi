@@ -3,8 +3,11 @@ package com.levent_j.meizhi.bean;
 /**
  * Created by levent_j on 16-4-19.
  */
-public class PictureResult {
+public class Picture {
+
     private int id;
+    private int gallery; //图片库
+    private String src; //图片地址
 
     public int getId() {
         return id;
@@ -30,6 +33,5 @@ public class PictureResult {
         this.src = src;
     }
 
-    private int gallery; //图片库
-    private String src; //图片地址
+
 }
