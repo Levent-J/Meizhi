@@ -13,6 +13,7 @@ import com.levent_j.meizhi.bean.Gallery;
 import com.levent_j.meizhi.bean.GalleryListResult;
 import com.levent_j.meizhi.net.Api;
 import com.levent_j.meizhi.utils.SpaceItemDecoration;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,6 +28,8 @@ import rx.Subscriber;
 public class TypeFragment extends BaseFragment{
     @Bind(R.id.rv_gallery)
     RecyclerView mGalleryRecycler;
+    @Bind(R.id.loading_type)
+    public AVLoadingIndicatorView avLoadingIndicatorView;
 
     private static final String TYPE = "TYPE";
     private int type;
@@ -57,7 +60,7 @@ public class TypeFragment extends BaseFragment{
         }
         spacingInPixels = getResources().getDimensionPixelSize(R.dimen.space);
         page = 1;
-        rows = 20;
+        rows = 10;
         galleryList = new ArrayList<>();
         galleryAdapter = new GalleryAdapter(getActivity());
     }
@@ -81,6 +84,7 @@ public class TypeFragment extends BaseFragment{
     private Subscriber<GalleryListResult> galleryListResultSubscriber = new Subscriber<GalleryListResult>() {
         @Override
         public void onCompleted() {
+            avLoadingIndicatorView.setVisibility(View.GONE);
             for (Gallery gallery:galleryList){
                 msg("completed-->url is"+gallery.getImg());
             }
@@ -89,6 +93,7 @@ public class TypeFragment extends BaseFragment{
 
         @Override
         public void onError(Throwable e) {
+            avLoadingIndicatorView.setVisibility(View.GONE);
             msg("error-->message is"+e.getMessage());
         }
 
@@ -96,7 +101,6 @@ public class TypeFragment extends BaseFragment{
         public void onNext(GalleryListResult galleryListResult) {
             if (!galleryListResult.isStatus()){
                 msg("next-->status is false");
-                this.unsubscribe();
             }else {
                 Collections.addAll(galleryList, galleryListResult.getTngou());
             }
@@ -107,6 +111,7 @@ public class TypeFragment extends BaseFragment{
             super.onStart();
             msg("net-->start()");
             galleryList.clear();
+            avLoadingIndicatorView.setVisibility(View.VISIBLE);
         }
     };
 }

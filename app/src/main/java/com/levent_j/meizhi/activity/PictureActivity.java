@@ -34,7 +34,7 @@ public class PictureActivity extends BaseActivity{
     protected void init() {
         urlList = getIntent().getStringArrayListExtra("urls");
         pictureFragmentAdapter = new PictureFragmentAdapter(getSupportFragmentManager(),this);
-        for (int i=0;i<urlList.size();i++){
+        for (int i=1;i<urlList.size();i++){
             pictureFragmentAdapter.addFragment(PictureFragment.newInstance(urlList.get(i)));
         }
         viewPager.setAdapter(pictureFragmentAdapter);

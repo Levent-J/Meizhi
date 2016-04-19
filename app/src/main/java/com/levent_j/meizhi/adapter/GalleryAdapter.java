@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import com.levent_j.meizhi.R;
 import com.levent_j.meizhi.activity.GalleryDetailActivity;
 import com.levent_j.meizhi.bean.Gallery;
+import com.levent_j.meizhi.fragment.TypeFragment;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -68,7 +70,17 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.mViewHol
                 .load(IMAGE_URL + url)
                 .resize((int)w,(int)h)
                 .centerCrop()
-                .into(holder.mGalleryImg);
+                .into(holder.mGalleryImg, new Callback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
 //        holder.mGalleryTitle.setText(gallery.getTitle());
     }
 

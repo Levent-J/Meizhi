@@ -91,6 +91,7 @@ public class GalleryDetailActivity extends BaseActivity implements View.OnClickL
 
         @Override
         public void onError(Throwable e) {
+            finish();
             msg("error-->message is" + e.getLocalizedMessage());
         }
 

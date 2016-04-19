@@ -23,7 +23,7 @@
         <activity android:name=".activity.GalleryDetailActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".activity.PictureActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" android:process=":picture"/>
     </application>
 
 </manifest>
