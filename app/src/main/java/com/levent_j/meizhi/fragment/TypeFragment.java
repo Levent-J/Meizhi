@@ -67,7 +67,6 @@ public class TypeFragment extends BaseFragment{
         super.onViewCreated(view, savedInstanceState);
         loadData();
         mGalleryRecycler.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-//        mGalleryRecycler.setLayoutManager(new LinearLayoutManager(mGalleryRecycler.getContext()));
         mGalleryRecycler.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
         mGalleryRecycler.setHasFixedSize(true);
         mGalleryRecycler.setAdapter(galleryAdapter);

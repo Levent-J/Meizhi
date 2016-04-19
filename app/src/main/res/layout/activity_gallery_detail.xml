@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:fitsSystemWindows="true"
+    tools:context=".GalleryDetailActivity">
+
+    <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
+        android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar android:id="@+id/detail_toolbar" android:visibility="invisible"
+            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary" app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:layout_scrollFlags="scroll|enterAlways"/>
+        <LinearLayout
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabMode="scrollable"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+            <ImageView
+                android:id="@+id/iv_gallery_detail_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryLight"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:textColor="@color/colorWhite"
+                    android:textSize="12pt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="title title title title"
+                    android:id="@+id/tv_gallery_detail_title"/>
+                <TextView
+                    android:textColor="@color/colorWhite"
+                    android:textSize="9pt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="fcount"
+                    android:id="@+id/tv_gallery_detail_fcount"
+                    android:layout_alignTop="@+id/tv_gallery_detail_rcount"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginTop="10dp"
+                    android:textSize="9pt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="count"
+                    android:id="@+id/tv_gallery_detail_count"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_below="@+id/tv_gallery_detail_title"
+                    android:layout_alignLeft="@+id/tv_gallery_detail_title"
+                    android:layout_alignStart="@+id/tv_gallery_detail_title" />
+
+                <TextView
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginTop="10dp"
+                    android:textSize="9pt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="rcount"
+                    android:id="@+id/tv_gallery_detail_rcount"
+                    android:layout_below="@+id/tv_gallery_detail_title"
+                    android:layout_centerHorizontal="true" />
+            </RelativeLayout>
+
+            <TextView
+                android:textColor="@color/colorWhite"
+                android:textSize="12pt"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="评论列表"/>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

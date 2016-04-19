@@ -2,6 +2,7 @@ package com.levent_j.meizhi.net;
 
 import com.google.gson.Gson;
 import com.levent_j.meizhi.bean.GalleryListResult;
+import com.levent_j.meizhi.bean.GalleryResult;
 import com.squareup.okhttp.OkHttpClient;
 
 import retrofit.GsonConverterFactory;
@@ -56,6 +57,13 @@ public class Api {
                 .subscribe(subscriber);
     }
 
+    public void getGalleryDetail(int id,Subscriber<GalleryResult> subscriber){
+        apiService.getGalleryDetail(id)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
 
     public interface ApiService{
         //http://www.tngou.net/tnfs/api/list
@@ -63,5 +71,9 @@ public class Api {
         Observable<GalleryListResult> getGalleryList(@Query("page") int page,
                                               @Query("rows") int rows,
                                               @Query("id") int id);
+
+        //http://www.tngou.net/tnfs/api/show?id=18
+        @GET("show")
+        Observable<GalleryResult> getGalleryDetail(@Query("id") int id);
     }
 }
