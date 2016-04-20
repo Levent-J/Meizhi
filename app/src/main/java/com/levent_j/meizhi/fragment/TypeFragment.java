@@ -1,11 +1,15 @@
 package com.levent_j.meizhi.fragment;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.widget.Button;
 
+import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 import com.levent_j.meizhi.R;
 import com.levent_j.meizhi.adapter.GalleryAdapter;
 import com.levent_j.meizhi.base.BaseFragment;
@@ -20,6 +24,7 @@ import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
+import rx.Observer;
 import rx.Subscriber;
 
 /**
@@ -30,6 +35,12 @@ public class TypeFragment extends BaseFragment{
     RecyclerView mGalleryRecycler;
     @Bind(R.id.loading_type)
     public AVLoadingIndicatorView avLoadingIndicatorView;
+//    @Bind(R.id.btn_more)
+//    Button more;
+//    @Bind(R.id.srl_type)
+//    SwipeRefreshLayout refreshLayout;
+    @Bind(R.id.mrl_type)
+    MaterialRefreshLayout refreshLayout;
 
     private static final String TYPE = "TYPE";
     private int type;
@@ -68,23 +79,50 @@ public class TypeFragment extends BaseFragment{
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        loadData();
         mGalleryRecycler.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         mGalleryRecycler.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
         mGalleryRecycler.setHasFixedSize(true);
         mGalleryRecycler.setAdapter(galleryAdapter);
+
+        loadData();
+//        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                mGalleryRecycler.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+//                mGalleryRecycler.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+//                mGalleryRecycler.setHasFixedSize(true);
+//                mGalleryRecycler.setAdapter(galleryAdapter);
+//                Api.getInstance().getGalleryList(page, rows, type, galleryListResultSubscriber);
+//            }
+//        });
+        refreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
+            @Override
+            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+                loadData();
+            }
+
+            @Override
+            public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
+                super.onRefreshLoadMore(materialRefreshLayout);
+                rows += 10;
+                loadData();
+            }
+        });
     }
 
     private void loadData() {
         msg("第"+type+"种");
         //发起网络请求
-        Api.getInstance().getGalleryList(page,rows,type, galleryListResultSubscriber);
+        galleryList.clear();
+        Api.getInstance().getGalleryList(page,rows,type, galleryListResultObserver);
     }
 
-    private Subscriber<GalleryListResult> galleryListResultSubscriber = new Subscriber<GalleryListResult>() {
+    private Observer<GalleryListResult> galleryListResultObserver = new Observer<GalleryListResult>() {
         @Override
         public void onCompleted() {
             avLoadingIndicatorView.setVisibility(View.GONE);
+            refreshLayout.finishRefresh();
+            refreshLayout.finishRefreshLoadMore();
             for (Gallery gallery:galleryList){
                 msg("completed-->url is"+gallery.getImg());
             }
@@ -106,12 +144,12 @@ public class TypeFragment extends BaseFragment{
             }
         }
 
-        @Override
-        public void onStart() {
-            super.onStart();
-            msg("net-->start()");
-            galleryList.clear();
-            avLoadingIndicatorView.setVisibility(View.VISIBLE);
-        }
+//        @Override
+//        public void onStart() {
+//            super.onStart();
+//            msg("net-->start()");
+//            galleryList.clear();
+//            avLoadingIndicatorView.setVisibility(View.VISIBLE);
+//        }
     };
 }

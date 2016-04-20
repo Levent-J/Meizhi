@@ -10,16 +10,31 @@
         android:id="@+id/loading_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:visibility="gone"
         app:indicator="BallPulse"
         android:layout_gravity="center"
         app:indicator_color="@color/colorPrimary" />
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_marginLeft="20dp"
+
+
+
+    <com.cjj.MaterialRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rv_gallery"
-        android:scrollbars="none"/>
+        android:id="@+id/mrl_type"
+        app:isLoadMore="true"
+        app:overlay="false"
+        app:wave_show="true"
+        app:wave_color="@color/colorPrimary"
+        app:wave_height_type="normal">
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginLeft="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/rv_gallery"
+            android:scrollbars="none"/>
+    </com.cjj.MaterialRefreshLayout>
+
 
 </FrameLayout>

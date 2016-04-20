@@ -50,11 +50,11 @@ public class Api {
     }
 
     //下面加入方法就行了
-    public void getGalleryList(int page,int rows,int id, Subscriber<GalleryListResult> subscriber){
+    public void getGalleryList(int page,int rows,int id, Observer<GalleryListResult> observer){
         apiService.getGalleryList(page, rows, id)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
+                .subscribe(observer);
     }
 
     public void getGalleryDetail(int id,Subscriber<GalleryResult> subscriber){

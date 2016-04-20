@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.levent_j.meizhi.R;
@@ -14,7 +15,10 @@ import com.levent_j.meizhi.bean.GalleryResult;
 import com.levent_j.meizhi.bean.Picture;
 import com.levent_j.meizhi.net.Api;
 import com.levent_j.meizhi.utils.PicassoTransformation;
+import com.levent_j.meizhi.utils.Util;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,6 +42,12 @@ public class GalleryDetailActivity extends BaseActivity implements View.OnClickL
     TextView mGalleryFcount;
     @Bind(R.id.detail_toolbar)
     Toolbar toolbar;
+    @Bind(R.id.tv_gallery_detail_time)
+    TextView mGalleryTime;
+    @Bind(R.id.rl_detail)
+    RelativeLayout mRelativeLayout;
+    @Bind(R.id.loading_detail)
+    AVLoadingIndicatorView avLoadingIndicatorView;
 
     private int id;
     private GalleryResult galleryResult;
@@ -60,6 +70,8 @@ public class GalleryDetailActivity extends BaseActivity implements View.OnClickL
         pictureResultArrayList = new ArrayList<>();
         urlList = new ArrayList<>();
         loadData();
+        avLoadingIndicatorView.setVisibility(View.VISIBLE);
+        mRelativeLayout.setVisibility(View.GONE);
     }
 
     private void loadData() {
@@ -78,12 +90,25 @@ public class GalleryDetailActivity extends BaseActivity implements View.OnClickL
         public void onCompleted() {
             Picasso picasso = Picasso.with(getApplicationContext());
             PicassoTransformation picassoTransformation = new PicassoTransformation(getApplicationContext(),false);
-            picasso.load(IMAGE_URL+galleryResult.getImg()).transform(picassoTransformation).into(mGalleryImg);
+            picasso.load(IMAGE_URL+galleryResult.getImg()).transform(picassoTransformation).into(mGalleryImg, new Callback() {
+                @Override
+                public void onSuccess() {
+                    avLoadingIndicatorView.setVisibility(View.GONE);
+                    mRelativeLayout.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
 //
             mGalleryTitle.setText(galleryResult.getTitle() + "(" + galleryResult.getSize() + "张)");
             mGalleryCount.setText("访问数:"+galleryResult.getCount());
             mGalleryRcount.setText("回复数："+galleryResult.getRcount());
             mGalleryFcount.setText("收藏数:" + galleryResult.getFcount());
+            mGalleryTime.setText(Util.getDate(galleryResult.getTime()));
+
             for (int i=0;i<galleryResult.getList().length;i++){
                 urlList.add(galleryResult.getList()[i].getSrc());
             }

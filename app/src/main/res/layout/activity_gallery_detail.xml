@@ -34,23 +34,37 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryLight"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <LinearLayout
+
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
+            <com.wang.avi.AVLoadingIndicatorView
+                android:layout_marginTop="20dp"
+                android:id="@+id/loading_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:indicator="BallPulse"
+                android:layout_gravity="center"
+                app:indicator_color="@color/colorWhite" />
             <RelativeLayout
+                android:id="@+id/rl_detail"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_weight="1.60">
                 <TextView
                     android:textColor="@color/colorWhite"
                     android:textSize="10pt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="title title title title"
-                    android:id="@+id/tv_gallery_detail_title"/>
+                    android:id="@+id/tv_gallery_detail_title"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignRight="@+id/tv_gallery_detail_fcount"
+                    android:layout_alignEnd="@+id/tv_gallery_detail_fcount" />
                 <TextView
                     android:textColor="@color/colorWhite"
                     android:textSize="8pt"
@@ -58,47 +72,48 @@
                     android:layout_height="wrap_content"
                     android:text="fcount"
                     android:id="@+id/tv_gallery_detail_fcount"
-                    android:layout_alignTop="@+id/tv_gallery_detail_rcount"
+                    android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
 
                 <TextView
+                    android:layout_marginTop="20dp"
                     android:textColor="@color/colorWhite"
-                    android:layout_marginTop="10dp"
                     android:textSize="8pt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="count"
                     android:id="@+id/tv_gallery_detail_count"
                     android:layout_gravity="center_horizontal"
-                    android:layout_below="@+id/tv_gallery_detail_title"
-                    android:layout_alignLeft="@+id/tv_gallery_detail_title"
-                    android:layout_alignStart="@+id/tv_gallery_detail_title" />
+                    android:layout_below="@+id/tv_gallery_detail_time"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
 
                 <TextView
                     android:textColor="@color/colorWhite"
-                    android:layout_marginTop="10dp"
                     android:textSize="8pt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="rcount"
                     android:id="@+id/tv_gallery_detail_rcount"
-                    android:layout_below="@+id/tv_gallery_detail_title"
+                    android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true" />
+
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="8pt"
+                    android:id="@+id/tv_gallery_detail_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="时间"
+                    android:layout_below="@+id/tv_gallery_detail_title"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
             </RelativeLayout>
+        </FrameLayout>
 
-            <TextView
-                android:textColor="@color/colorWhite"
-                android:textSize="10pt"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="评论列表"/>
 
-        </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>
