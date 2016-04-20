@@ -15,6 +15,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.levent_j.meizhi.R;
 import com.levent_j.meizhi.base.BaseActivity;
@@ -38,6 +39,8 @@ public class MainActivity extends BaseActivity
 
     private TypeFragmentAdapter typeFragmentAdapter;
     private FragmentManager fragmentManager;
+    private long lastExitTime = 0;
+
 
 
     @Override
@@ -73,11 +76,11 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if ((System.currentTimeMillis() - lastExitTime) > 3000) {
+            Toast.makeText(this, "重复操作退出应用", Toast.LENGTH_SHORT).show();
+            lastExitTime = System.currentTimeMillis();
         } else {
-            super.onBackPressed();
+            finish();
         }
     }
 
@@ -209,4 +212,6 @@ public class MainActivity extends BaseActivity
             }
         }
     }
+
+
 }

@@ -144,12 +144,7 @@ public class TypeFragment extends BaseFragment{
             }
         }
 
-//        @Override
-//        public void onStart() {
-//            super.onStart();
-//            msg("net-->start()");
-//            galleryList.clear();
-//            avLoadingIndicatorView.setVisibility(View.VISIBLE);
-//        }
     };
+
+
 }
