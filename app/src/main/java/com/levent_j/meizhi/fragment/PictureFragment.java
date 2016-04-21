@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.levent_j.meizhi.R;
@@ -25,6 +27,10 @@ public class PictureFragment extends BaseFragment{
     ImageView mPicture;
     @Bind(R.id.loading_picture)
     AVLoadingIndicatorView avLoadingIndicatorView;
+    @Bind(R.id.ll_gallery_detail_fail)
+    LinearLayout mFailed;
+    @Bind(R.id.btn_gallery_retry)
+    Button mRetry;
 
     private static final String KEY = "url";
     private static final String URL = "http://tnfs.tngou.net/image";
@@ -53,17 +59,6 @@ public class PictureFragment extends BaseFragment{
         //用transform()变换
         loadImage(getActivity());
 
-
-        //耗流量变换
-//        WindowManager windowManager = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
-//        float sw =   windowManager.getDefaultDisplay().getWidth();
-//        float sh = windowManager.getDefaultDisplay().getHeight();
-//        Picasso.with(getActivity()).load(URL + url).resize((int)sw,(int)sh).centerCrop().into(mPicture);
-//        if (mPicture.getWidth()>mPicture.getHeight()){
-//            Picasso.with(getActivity()).load(URL + url).rotate(90f).resize((int)sw,(int)sh).centerCrop().into(mPicture);
-//        }
-
-
     }
 
     private void loadImage(final FragmentActivity activity) {
@@ -77,14 +72,17 @@ public class PictureFragment extends BaseFragment{
 
             @Override
             public void onError() {
-                avLoadingIndicatorView.setVisibility(View.GONE);
-
-                Snackbar.make(getView(), "网络出问题啦～", Snackbar.LENGTH_LONG).setAction("重新加载", new View.OnClickListener() {
+                mFailed.setVisibility(View.VISIBLE);
+                mPicture.setVisibility(View.GONE);
+                mRetry.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         loadImage(activity);
                     }
-                }).show();
+                });
+                avLoadingIndicatorView.setVisibility(View.GONE);
+
+                Snackbar.make(getView(), "网络出问题啦～", Snackbar.LENGTH_LONG).show();
             }
         });
     }
