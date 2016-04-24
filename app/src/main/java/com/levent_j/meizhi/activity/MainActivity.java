@@ -1,6 +1,7 @@
 package com.levent_j.meizhi.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,6 +16,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.levent_j.meizhi.R;
@@ -58,6 +60,7 @@ public class MainActivity extends BaseActivity
         drawer.setDrawerListener(toggle);
         disableNavigationViewScrollbars(navigationView);
         toggle.syncState();
+
 
         typeFragmentAdapter = new TypeFragmentAdapter(getSupportFragmentManager(),this);
 
@@ -108,6 +111,7 @@ public class MainActivity extends BaseActivity
         return super.onOptionsItemSelected(item);
     }
 
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -128,9 +132,18 @@ public class MainActivity extends BaseActivity
             typeFragmentAdapter.replaceFragmrnt(5);
         } else if (id == R.id.nav_7) {
             typeFragmentAdapter.replaceFragmrnt(6);
+        }else if (id == R.id.iv_nav_avater){
+            Toast.makeText(getApplicationContext(),"login",Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final ImageView imageView = (ImageView) drawer.findViewById(R.id.iv_nav_avater);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+            }
+        });
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
