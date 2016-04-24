@@ -19,12 +19,14 @@ import android.widget.Toast;
 
 import com.levent_j.meizhi.R;
 import com.levent_j.meizhi.base.BaseActivity;
+import com.levent_j.meizhi.bean.Test;
 import com.levent_j.meizhi.fragment.TypeFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import cn.bmob.v3.listener.SaveListener;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -137,8 +139,20 @@ public class MainActivity extends BaseActivity
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.fab:
-                Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                //测试Bmob
+                Test test = new Test();
+                test.setName("lwj");
+                test.save(this, new SaveListener() {
+                    @Override
+                    public void onSuccess() {
+                        msg("bmob save success");
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+                        msg("bmob save failure");
+                    }
+                });
                 break;
         }
     }
