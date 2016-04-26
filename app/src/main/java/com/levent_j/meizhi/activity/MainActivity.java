@@ -56,7 +56,19 @@ public class MainActivity extends BaseActivity
     protected void init() {
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close){
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                ImageView avater = (ImageView) drawerView.findViewById(R.id.iv_nav_avater);
+                avater.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                    }
+                });
+            }
+        };
         drawer.setDrawerListener(toggle);
         disableNavigationViewScrollbars(navigationView);
         toggle.syncState();
@@ -137,13 +149,13 @@ public class MainActivity extends BaseActivity
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        final ImageView imageView = (ImageView) drawer.findViewById(R.id.iv_nav_avater);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,LoginActivity.class));
-            }
-        });
+//        final ImageView imageView = (ImageView) drawer.findViewById(R.id.iv_nav_avater);
+//        imageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+//            }
+//        });
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
