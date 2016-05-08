@@ -45,6 +45,7 @@ public class MainActivity extends BaseActivity
     private FragmentManager fragmentManager;
     private long lastExitTime = 0;
 
+    //////////
 
 
     @Override
@@ -217,6 +218,7 @@ public class MainActivity extends BaseActivity
             typeFragmentList.add(fragment);
             fragmentTitles.add(getTitle(type));
         }
+
 
         private String getTitle(int type) {
             switch (type){
