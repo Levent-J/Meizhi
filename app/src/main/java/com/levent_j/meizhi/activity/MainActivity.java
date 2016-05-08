@@ -45,7 +45,6 @@ public class MainActivity extends BaseActivity
     private FragmentManager fragmentManager;
     private long lastExitTime = 0;
 
-    /////
 
 
     @Override
