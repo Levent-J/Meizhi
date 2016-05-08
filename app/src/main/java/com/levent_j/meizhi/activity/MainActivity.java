@@ -46,6 +46,7 @@ public class MainActivity extends BaseActivity
     private long lastExitTime = 0;
 
     //////////
+    //////////
 
 
     @Override
