@@ -40,4 +40,6 @@ dependencies {
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.cjj.materialrefeshlayout:library:1.3.0'
     compile files('libs/BmobSDK_V3.4.6_0415.jar')
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3.1'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3.1'
 }

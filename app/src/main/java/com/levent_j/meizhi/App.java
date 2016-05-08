@@ -3,6 +3,8 @@ package com.levent_j.meizhi;
 import android.app.Application;
 import android.util.Log;
 
+import com.squareup.leakcanary.LeakCanary;
+
 import cn.bmob.v3.Bmob;
 
 /**
@@ -13,6 +15,6 @@ public class App extends Application{
     public void onCreate() {
         super.onCreate();
         Bmob.initialize(this, "fc5d7abeb322e8bdafd944a8dfdbd55b");
-
+        LeakCanary.install(this);
     }
 }
