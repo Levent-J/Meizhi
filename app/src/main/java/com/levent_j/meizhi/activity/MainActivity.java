@@ -42,10 +42,8 @@ public class MainActivity extends BaseActivity
     NavigationView navigationView;
 
     private TypeFragmentAdapter typeFragmentAdapter;
-    private FragmentManager fragmentManager;
+    private FragmentManager fragmentManager;//
     private long lastExitTime = 0;
-
-
 
     @Override
     protected int getLayoutId() {
